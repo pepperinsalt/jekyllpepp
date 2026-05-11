@@ -1,0 +1,59 @@
+name: Daily Stats Processor
+on:
+  repository_dispatch:
+    types: [daily_stats]
+  workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day Number'
+        required: true
+      date:
+        description: 'Date (YYYY-MM-DD)'
+        required: true
+      health:
+        description: 'Health Stat'
+        required: true
+      wealth:
+        description: 'Wealth Stat'
+        required: true
+      family:
+        description: 'Family Stat'
+        required: true
+      personal:
+        description: 'Personal Stat'
+        required: true
+      content:
+        description: 'Entry content'
+        required: false
+
+jobs:
+  create-stat-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create stat file
+        run: |
+          mkdir -p _stats
+          FILENAME="_stats/${{ github.event.inputs.date || github.event.client_payload.date }}-day-${{ github.event.inputs.day || github.event.client_payload.day }}.md"
+          cat <<EOF > $FILENAME
+          ---
+          layout: stat
+          title: "Day ${{ github.event.inputs.day || github.event.client_payload.day }}"
+          date: ${{ github.event.inputs.date || github.event.client_payload.date }}
+          health: "${{ github.event.inputs.health || github.event.client_payload.health }}"
+          wealth: "${{ github.event.inputs.wealth || github.event.client_payload.wealth }}"
+          family: "${{ github.event.inputs.family || github.event.client_payload.family }}"
+          personal: "${{ github.event.inputs.personal || github.event.client_payload.personal }}"
+          ---
+          ${{ github.event.inputs.content || github.event.client_payload.content }}
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "Daily Stats Bot"
+          git config --global user.email "stats-bot@github.com"
+          git add _stats/
+          git commit -m "Add daily stat for Day ${{ github.event.inputs.day || github.event.client_payload.day }}"
+          git push
