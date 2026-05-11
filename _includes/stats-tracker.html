@@ -1,0 +1,70 @@
+<section id="stats-tracker" style="padding: 25px; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; margin: 30px 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); font-family: sans-serif;">
+    <h3 style="margin-top: 0; color: #1e293b;">Daily Vitals Tracker</h3>
+    <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 20px;">Log your daily metrics. Data is synced directly to your private Google Sheet.</p>
+    
+    <form id="vitalsForm" style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; align-items: center;">
+            <label style="font-weight: 600;">Happy</label>
+            <input type="range" name="happy" min="1" max="10" value="5" style="width: 100%;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; align-items: center;">
+            <label style="font-weight: 600;">Healthy</label>
+            <input type="range" name="healthy" min="1" max="10" value="5" style="width: 100%;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; align-items: center;">
+            <label style="font-weight: 600;">Wealthy</label>
+            <input type="range" name="wealthy" min="1" max="10" value="5" style="width: 100%;">
+        </div>
+        <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 5px;">Daily Note</label>
+            <textarea name="notes" placeholder="What happened today?" style="width: 100%; height: 80px; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box;"></textarea>
+        </div>
+        <button type="submit" id="submitBtn" style="background: #2563eb; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s;">Sync to Cloud</button>
+    </form>
+    <p id="statusMsg" style="margin-top: 15px; font-size: 0.85rem; display: none;"></p>
+</section>
+
+<script>
+document.getElementById('vitalsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('statusMsg');
+    const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // User needs to replace this
+    
+    if (scriptURL.includes('YOUR_GOOGLE')) {
+        msg.style.display = 'block';
+        msg.style.color = '#dc2626';
+        msg.textContent = 'Error: Please configure your Google Apps Script URL in _includes/stats-tracker.html';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Syncing...';
+    
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        msg.style.display = 'block';
+        msg.style.color = '#16a34a';
+        msg.textContent = 'Successfully synced to Google Sheets!';
+        btn.textContent = 'Sync to Cloud';
+        btn.disabled = false;
+        this.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        msg.style.display = 'block';
+        msg.style.color = '#dc2626';
+        msg.textContent = 'Sync failed. Check console for details.';
+        btn.disabled = false;
+    });
+});
+</script>
