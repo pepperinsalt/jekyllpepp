@@ -5,6 +5,7 @@ gem "beautiful-jekyll-theme", "~> 6.0"
 gem "jekyll-remote-theme"
 gem "jekyll-seo-tag"
 gem "jekyll-paginate"
+gem "jekyll-include-cache"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.17"
