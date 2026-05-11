@@ -6,6 +6,9 @@ hydejack:
   font: "Open Sans, sans-serif"
   font_heading: "Fira Sans, serif"
   logo: "🌶️"
+  no_break_layout: true
+  theme_color: "#CD5C5C"
+  accent_color: "#CD5C5C"
 
 plugins:
   - jekyll-remote-theme
@@ -13,3 +16,8 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-include-cache
+  - jekyll-sitemap
+
+description: "Kacy - Developer and Technician based in Murray, Utah."
+url: ""
+baseurl: ""

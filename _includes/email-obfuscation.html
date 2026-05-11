@@ -1,0 +1,23 @@
+<script>
+  function decodeEmail(encodedString) {
+    var email = "";
+    for (var i = 0; i < encodedString.length; i++) {
+      email += String.fromCharCode(encodedString.charCodeAt(i) - 1);
+    }
+    window.location.href = "mailto:" + email;
+  }
+</script>
+<a href="#" onclick="decodeEmail('johndoe@example.com'.split('').map(c => String.fromCharCode(c.charCodeAt(0)+1)).join('')); return false;" class="btn-custom" style="display:none;" id="contact-btn">Contact Me</a>
+<script>
+  // Encode it in JS so the raw string is harder to grep, though this is just a stub since there is no actual email right now
+  document.getElementById('contact-btn').onclick = function() {
+    // kacy@example.com encoded by adding 1 to char codes
+    var enc = 'lbdzAfybnqmf/dpn';
+    var dec = '';
+    for(var i=0; i<enc.length; i++) {
+      dec += String.fromCharCode(enc.charCodeAt(i) - 1);
+    }
+    window.location.href = "mailto:" + dec;
+    return false;
+  };
+</script>
