@@ -1,24 +1,12 @@
-title: Hello Deploy Now built with Beautiful Jekyll
-author: pepperinsalt
-navbar-links:
-  About Me: "about"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn Markdown: "https://www.markdownguide.org"
-
-theme: beautiful-jekyll-theme
-
+title: "Pepper in Salt"
+remote_theme: hydecorp/hydejack
+hydejack:
+  google_fonts: "Fira+Sans:400,700|Open+Sans:400,700|Playfair+Display:400,700"
+  font: "Open Sans, sans-serif"
+  font_heading: "Fira Sans, serif"
+  logo: "🌶️🧂"
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-paginate
-
-# Beautiful Jekyll settings
-footer-links-list:
-  rss: ""
-  email: "your-email@example.com"
-  twitter: "jekyllrb"
-  github: "pepperinsalt"
-
-# Build settings
-paginate: 5
-paginate_path: "/page:num/"
+  - jekyll-seo-tag
