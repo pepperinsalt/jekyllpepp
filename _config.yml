@@ -5,7 +5,7 @@ hydejack:
   google_fonts: "Fira+Sans:400,700|Open+Sans:400,700|Playfair+Display:400,700"
   font: "Open Sans, sans-serif"
   font_heading: "Fira Sans, serif"
-  logo: "🌶️"
+  logo: "🍎"
 
 plugins:
   - jekyll-remote-theme
@@ -13,3 +13,8 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-include-cache
+
+collections:
+  stats:
+    output: true
+    permalink: /stats/:name/
