@@ -1,10 +1,12 @@
 title: "Pepper in Salt"
 remote_theme: hydecorp/hydejack
+
 hydejack:
   google_fonts: "Fira+Sans:400,700|Open+Sans:400,700|Playfair+Display:400,700"
   font: "Open Sans, sans-serif"
   font_heading: "Fira Sans, serif"
   logo: "🌶️🧂"
+
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
