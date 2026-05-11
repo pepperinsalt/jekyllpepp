@@ -4,3 +4,6 @@
 
 layout: home
 ---
+Check out my [Deep Dive 1]({% post_url 2026-05-11-deep-dive-1 %})
+
+Read [Deep Dive 2]({% post_url 2026-05-11-deep-dive-2 %})
