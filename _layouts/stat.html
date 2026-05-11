@@ -1,0 +1,48 @@
+---
+layout: default
+---
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    margin: 20px 0;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="glass-card">
+  {% assign birth_date = "1992-08-05" | date: "%s" | plus: 0 %}
+  {% assign current_date = page.date | date: "%s" | plus: 0 %}
+  {% assign seconds_per_day = 86400 %}
+  {% assign diff_seconds = current_date | minus: birth_date %}
+  {% assign day_number = diff_seconds | divided_by: seconds_per_day | plus: 1 %}
+
+  <h1>Day {{ day_number }}</h1>
+  <p>{{ page.date | date: "%B %d, %Y" }}</p>
+
+  <div class="stat-grid">
+    <div class="stat-item"><strong>Health:</strong> {{ page.health }}</div>
+    <div class="stat-item"><strong>Wealth:</strong> {{ page.wealth }}</div>
+    <div class="stat-item"><strong>Family:</strong> {{ page.family }}</div>
+    <div class="stat-item"><strong>Personal:</strong> {{ page.personal }}</div>
+  </div>
+
+  <div class="content" style="margin-top: 20px;">
+    {{ content }}
+  </div>
+</div>
